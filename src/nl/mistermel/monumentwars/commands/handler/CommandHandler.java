@@ -28,7 +28,8 @@ public class CommandHandler implements CommandExecutor {
 		}
 		for(MonumentCommand cmd : commands) {
 			if(cmd.getLabel().equals(args[0])) {
-				cmd.execute(sender, args);
+				CommandResult result = cmd.execute(sender, args);
+				if(result != CommandResult.SUCCESS) sender.sendMessage(result.getMessage());
 				return true;
 			}
 		}
