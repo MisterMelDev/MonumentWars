@@ -4,6 +4,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import nl.mistermel.monumentwars.commands.HelpCommand;
 import nl.mistermel.monumentwars.commands.handler.CommandHandler;
+import nl.mistermel.monumentwars.managers.ArenaManager;
 
 public class MonumentWars extends JavaPlugin {
 	
