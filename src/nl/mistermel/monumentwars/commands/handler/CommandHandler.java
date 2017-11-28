@@ -29,6 +29,7 @@ public class CommandHandler implements CommandExecutor {
 		for(MonumentCommand cmd : commands) {
 			if(cmd.getLabel().equals(args[0])) {
 				cmd.execute(sender, args);
+				return true;
 			}
 		}
 		sender.sendMessage(ChatColor.RED + "Subcommand not found!");
