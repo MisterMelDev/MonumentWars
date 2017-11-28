@@ -29,7 +29,9 @@ public class CommandHandler implements CommandExecutor {
 		for(MonumentCommand cmd : commands) {
 			if(cmd.getLabel().equals(args[0])) {
 				CommandResult result = cmd.execute(sender, args);
-				if(result != CommandResult.SUCCESS) sender.sendMessage(result.getMessage());
+				if(result == CommandResult.INVALID_ARGS) {
+					sender.sendMessage(ChatColor.GRAY + "Use: " + ChatColor.RED + cmd.getLabel() + cmd.getArgs());
+				} else if(result.getMessage() != null) sender.sendMessage(result.getMessage());
 				return true;
 			}
 		}
