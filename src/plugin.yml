@@ -1,0 +1,6 @@
+name: MonumentWars
+main: nl.mistermel.monumentwars.MonumentWars
+commands:
+  monumentwars:
+    description: Main command of MonumentWars.
+    aliases: ['mw', 'monumentw', 'mwars']
