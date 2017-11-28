@@ -36,4 +36,8 @@ public class CommandHandler implements CommandExecutor {
 		return true;
 	}
 
+	public Set<MonumentCommand> getCommands() {
+		return commands;
+	}
+
 }

@@ -3,6 +3,7 @@ package nl.mistermel.monumentwars.commands;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
+import nl.mistermel.monumentwars.MonumentWars;
 import nl.mistermel.monumentwars.commands.handler.MonumentCommand;
 
 public class HelpCommand extends MonumentCommand {
@@ -13,7 +14,9 @@ public class HelpCommand extends MonumentCommand {
 
 	@Override
 	public void execute(CommandSender sender, String[] args) {
-		//TODO: Actually include help messages.
-		sender.sendMessage(ChatColor.RED + "Work in progress!");
+		sender.sendMessage(ChatColor.GOLD + "List of commands:");
+		for(MonumentCommand cmd : MonumentWars.getInstance().getCommandHandle().getCommands()) {
+			sender.sendMessage(ChatColor.GREEN + "/mwars " + cmd.getLabel() + cmd.getArgs() + ChatColor.YELLOW + " - " + cmd.getDescription());
+		}
 	}
 }
