@@ -26,6 +26,6 @@ public abstract class MonumentCommand {
 		return description;
 	}
 	
-	public abstract void execute(CommandSender sender, String[] args);
+	public abstract CommandResult execute(CommandSender sender, String[] args);
 	
 }

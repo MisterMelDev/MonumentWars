@@ -28,6 +28,14 @@ public class Arena {
 		this.max = max;
 	}
 	
+	public void join(Player p) {
+		players.add(p.getUniqueId());
+	}
+	
+	public void leave(Player p) {
+		players.remove(p.getUniqueId());
+	}
+	
 	public Location getSpawn(Team team) {
 		return teamSpawns.get(team);
 	}

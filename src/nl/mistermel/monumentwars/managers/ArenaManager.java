@@ -13,6 +13,13 @@ public class ArenaManager {
 		arenas.add(new Arena(name, 4, 15));
 	}
 	
+	public Arena getArena(String name) {
+		for(Arena a : arenas) {
+			if(a.getName().equals(name)) return a;
+		}
+		return null;
+	}
+	
 	public void load() {
 		
 	}
