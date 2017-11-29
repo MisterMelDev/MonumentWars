@@ -17,6 +17,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import nl.mistermel.monumentwars.managers.ConfigManager;
 import nl.mistermel.monumentwars.utils.ChatUtils;
+import nl.mistermel.monumentwars.utils.Team;
 
 public class Arena {
 	
@@ -29,6 +30,7 @@ public class Arena {
 	private Map<Location, Block> placedBlocks = new HashMap<Location, Block>();
 	private Location lobby;
 	private Map<Team, Location> teamSpawns = new HashMap<Team, Location>();
+	private Set<Team> teams = new HashSet<Team>();
 	private MonumentWars mw;
 	private ChatUtils cu = new ChatUtils();
 	
