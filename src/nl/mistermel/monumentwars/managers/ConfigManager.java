@@ -10,7 +10,6 @@ import nl.mistermel.monumentwars.MonumentWars;
 
 public class ConfigManager {
 	
-	private MonumentWars mw;
 	
 	private File configFile;
 	private FileConfiguration config;
@@ -19,13 +18,11 @@ public class ConfigManager {
 	private FileConfiguration data;
 	
 	public ConfigManager(MonumentWars mw) {
-		this.mw = mw;
-		
 		configFile = new File(mw.getDataFolder(), "config.yml");
 		config = YamlConfiguration.loadConfiguration(configFile);
 		
-		dataFile = new File(mw.getDataFolder(), "config.yml");
-		data = YamlConfiguration.loadConfiguration(configFile);
+		dataFile = new File(mw.getDataFolder(), "data.yml");
+		data = YamlConfiguration.loadConfiguration(dataFile);
 	}
 
 	public File getConfigFile() {
