@@ -5,12 +5,14 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.Set;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -30,7 +32,7 @@ public class Arena {
 	private Map<Location, Block> placedBlocks = new HashMap<Location, Block>();
 	private Location lobby;
 	private Map<Team, Location> teamSpawns = new HashMap<Team, Location>();
-	private Set<Team> teams = new HashSet<Team>();
+	private List<Team> teams = new ArrayList<Team>();
 	private MonumentWars mw;
 	private ChatUtils cu = new ChatUtils();
 	
@@ -49,6 +51,7 @@ public class Arena {
 	
 	public void join(Player p) {
 		players.add(p.getUniqueId());
+		p.teleport(lobby);
 		checkCountdown();
 	}
 	
@@ -111,6 +114,20 @@ public class Arena {
 	private void start() {
 		//TODO: Divide the players in to the teams and teleport them and give them their stuff.
 	}
+	
+	public void addPlayerToTeam(UUID uuid) {
+		getTeamWithLessPlayers().addPlayer(uuid);
+		Player p = Bukkit.getPlayer(uuid);
+		p.teleport(teamSpawns.get(getTeam(uuid)));
+	}
+	
+	public Team getTeam(UUID uuid) {
+		for(Team t : teams) {
+			if(t.getPlayers().contains(uuid))
+				return t;
+		}
+		return null;
+	}
 
 	public void leave(Player p) {
 		players.remove(p.getUniqueId());
@@ -122,6 +139,37 @@ public class Arena {
 	
 	public Location getLobby() {
 		return lobby;
+	}
+	
+	public Team getTeamWithLessPlayers() {
+		Random r = new Random();
+		Team result = teams.get(r.nextInt(teams.size()));
+		
+		for(Team t : teams) {
+			if(t.getPlayers().size() < result.getPlayers().size()) result = t;
+		}
+		return result;
+	}
+	
+	public void addTeam(String name, Material build) {
+		teams.add(new Team(name, build));
+	}
+	
+	public List<Team> getTeams() {
+		return teams;
+	}
+	
+	public void giveItems(Player p, Team t) {
+
+	}
+	
+	public Team getTeam(String name) {
+		for(Team t : teams) {
+			if(t.getName() == name) {
+				return t;
+			}
+		}
+		return null;
 	}
 	
 	public List<Player> getPlayers() {
