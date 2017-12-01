@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 import java.util.Set;
 import java.util.UUID;
 
@@ -32,7 +31,7 @@ public class Arena {
 	private Map<Location, Block> placedBlocks = new HashMap<Location, Block>();
 	private Location lobby;
 	private Map<Team, Location> teamSpawns = new HashMap<Team, Location>();
-	private List<Team> teams = new ArrayList<Team>();
+	private Set<Team> teams = new HashSet<Team>();
 	private MonumentWars mw;
 	private ChatUtils cu = new ChatUtils();
 	
@@ -141,12 +140,11 @@ public class Arena {
 		return lobby;
 	}
 	
-	public Team getTeamWithLessPlayers() {
-		Random r = new Random();
-		Team result = teams.get(r.nextInt(teams.size()));
+	public Team getSmallestTeam() {
+		Team result = null;
 		
 		for(Team t : teams) {
-			if(t.getPlayers().size() < result.getPlayers().size()) result = t;
+			if(result == null || t.getPlayers().size() < result.getPlayers().size()) result = t;
 		}
 		return result;
 	}
@@ -155,7 +153,7 @@ public class Arena {
 		teams.add(new Team(name, build));
 	}
 	
-	public List<Team> getTeams() {
+	public Set<Team> getTeams() {
 		return teams;
 	}
 	
