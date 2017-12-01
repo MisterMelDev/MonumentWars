@@ -72,18 +72,7 @@ public class Arena {
 	}
 	
 	public boolean countdownBroadcast() {
-		switch(countdown) {
-			case 60: return true;
-			case 30: return true;
-			case 15: return true;
-			case 10: return true;
-			case 5: return true;
-			case 4: return true;
-			case 3: return true;
-			case 2: return true;
-			case 1: return true;
-			default: return false;
-		}
+		return countdown % 10 == 0 || countdown <= 5;
 	}
 
 	private void countdown() {
@@ -115,7 +104,7 @@ public class Arena {
 	}
 	
 	public void addPlayerToTeam(UUID uuid) {
-		getTeamWithLessPlayers().addPlayer(uuid);
+		this.getSmallestTeam().addPlayer(uuid);
 		Player p = Bukkit.getPlayer(uuid);
 		p.teleport(teamSpawns.get(getTeam(uuid)));
 	}
