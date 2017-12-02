@@ -14,6 +14,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import nl.mistermel.monumentwars.managers.ConfigManager;
@@ -103,6 +104,13 @@ public class Arena {
 
 	private void start() {
 		//TODO: Divide the players in to the teams and teleport them and give them their stuff.
+		for(UUID u : players) {
+			Player p = Bukkit.getPlayer(u);
+			addPlayerToTeam(u);
+			Team t = getTeam(u);
+			p.getInventory().addItem(new ItemStack(Material.IRON_SWORD));
+			p.getInventory().addItem(new ItemStack(t.getBuild(), 64));
+		}
 	}
 	
 	public void addPlayerToTeam(UUID uuid) {
@@ -161,10 +169,10 @@ public class Arena {
 		return null;
 	}
 	
-	public List<Player> getPlayers() {
-		List<Player> list = new ArrayList<Player>();
+	public List<UUID> getPlayers() {
+		List<UUID> list = new ArrayList<UUID>();
 		for(UUID u : players) {
-			list.add(Bukkit.getPlayer(u));
+			list.add(u);
 		}
 		return list;
 	}
@@ -203,5 +211,16 @@ public class Arena {
 	
 	public void setActive(boolean active) {
 		this.activated = active;
+	}
+
+	public Location getTeamSpawn(String name) {
+		for(Team t1 : teams) {
+			if(t1.getName() == name) return teamSpawns.get(t1);
+		}
+		return null;
+	}
+
+	public void setLobby(Location lobby) {
+		this.lobby = lobby;
 	}
 }

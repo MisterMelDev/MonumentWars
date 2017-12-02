@@ -26,7 +26,7 @@ public class MonumentWars extends JavaPlugin {
 		this.registerCmd();
 		this.loadConfig();
 		
-		arenaMan.load();
+		arenaMan.loadAllArenas();
 	}
 	
 	private void registerCmd() {
@@ -46,7 +46,7 @@ public class MonumentWars extends JavaPlugin {
 	
 	@Override
 	public void onDisable() {
-		arenaMan.save();
+		arenaMan.saveAllArenas();
 	}
 	
 	public ArenaManager getArenaMan() {

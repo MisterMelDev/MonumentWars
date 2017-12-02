@@ -40,5 +40,9 @@ public class Team {
 	public void addPlayer(UUID uuid) {
 		players.add(uuid);
 	}
+	
+	public void removePlayer(UUID uuid) {
+		players.remove(uuid);
+	}
 
 }
