@@ -7,6 +7,7 @@ public enum CommandResult {
 	PLAYERS_ONLY(ChatColor.RED + "This command can only be used by players!"),
 	ARENA_NOT_FOUND(ChatColor.RED + "Arena not found!"),
 	ARENA_ALREADY_EXISTS(ChatColor.RED + "Arena already exists!"),
+	ARENA_NOT_ACTIVE(ChatColor.RED + "Arena isn't active!"),
 	INVALID_ARGS(null),
 	FAILURE(null),
 	SUCCESS(null);

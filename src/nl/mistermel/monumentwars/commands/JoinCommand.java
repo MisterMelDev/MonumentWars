@@ -16,17 +16,17 @@ public class JoinCommand extends MonumentCommand {
 
 	@Override
 	public CommandResult execute(CommandSender sender, String[] args) {
-		if(!(sender instanceof Player)) {
-			return CommandResult.PLAYERS_ONLY;
-		}
+		if(!(sender instanceof Player)) return CommandResult.PLAYERS_ONLY;
+		
 		Player p = (Player) sender;
-		if(args.length != 2) {
-			return CommandResult.INVALID_ARGS;
-		}
+		
+		if(args.length != 2) return CommandResult.INVALID_ARGS;
+		
 		Arena a = MonumentWars.getInstance().getArenaMan().getArena(args[1]);
-		if(a == null) {
-			return CommandResult.ARENA_NOT_FOUND;
-		}
+		if(a == null) return CommandResult.ARENA_NOT_FOUND;
+		
+		if(!a.isActive()) return CommandResult.ARENA_NOT_ACTIVE;
+			
 		a.join(p);
 		return CommandResult.SUCCESS;
 	}

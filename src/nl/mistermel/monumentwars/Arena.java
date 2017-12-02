@@ -34,14 +34,16 @@ public class Arena {
 	private Set<Team> teams = new HashSet<Team>();
 	private MonumentWars mw;
 	private ChatUtils cu = new ChatUtils();
+	private boolean activated;
 	
-	public Arena(String name, int min, int max) {
+	public Arena(String name, int min, int max, boolean activated) {
 		mw = MonumentWars.getPlugin(MonumentWars.class);
 		configMan = new ConfigManager(mw);
 		this.name = name;
 		this.min = min;
 		this.max = max;
 		countdown = configMan.getConfig().getInt("game.countdown");
+		this.activated = activated;
 	}
 	
 	public boolean isFull() {
@@ -195,4 +197,11 @@ public class Arena {
 		this.countdown = countdown;
 	}
 	
+	public boolean isActive() {
+		return activated;
+	}
+	
+	public void setActive(boolean active) {
+		this.activated = active;
+	}
 }
