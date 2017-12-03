@@ -1,12 +1,14 @@
 package nl.mistermel.monumentwars.managers;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Color;
 import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
 
@@ -17,6 +19,8 @@ import nl.mistermel.monumentwars.utils.Team;
 public class ArenaManager {
 	
 	private Set<Arena> arenas = new HashSet<Arena>();
+	
+	public Map<String, Color> allowedColors = new HashMap<String, Color>();
 	
 	private ConfigManager cm = new ConfigManager(MonumentWars.getInstance());
 	private FileConfiguration data = cm.getData();
@@ -30,6 +34,10 @@ public class ArenaManager {
 			if(a.getName().equals(name)) return a;
 		}
 		return null;
+	}
+	
+	public Map<String, Color> getAllowedColors() {
+		return allowedColors;
 	}
 	
 	public boolean ingame(UUID uuid) {
@@ -72,7 +80,12 @@ public class ArenaManager {
 		Arena a = new Arena(name, min, max, data.getBoolean("arenas." + name + ".active"));
 		
 		for(String key : data.getConfigurationSection("arenas." + name + ".teams").getKeys(true)) {
-			Team t = new Team(key, Material.WOOL);
+			String color = "WHITE";
+			if(allowedColors.containsKey(data.getString("arenas." + name + ".teams." + key + ".color"))) {
+				color = data.getString("arenas." + name + ".teams." + key + ".color");
+			}
+			Color c = allowedColors.get(color);
+			Team t = new Team(key, c);
 			a.getTeams().add(t);
 			a.getTeamSpawns().put(t, new Location(Bukkit.getWorld(data.getString("arenas." + name + ".teams." + t.getName() + ".world")),
 					data.getInt("arenas." + name + ".teams." + t.getName() + ".x"),
@@ -96,6 +109,7 @@ public class ArenaManager {
 			data.set("arenas." + name + ".teams." + t.getName() + ".x", loc.getX());
 			data.set("arenas." + name + ".teams." + t.getName() + ".y", loc.getY());
 			data.set("arenas." + name + ".teams." + t.getName() + ".z", loc.getZ());
+			data.set("arenas." + name + ".teams." + t.getName() + ".color", t.getColor());
 			} 
 		
 		data.set("arenas." + name + ".lobby.world", lobby.getWorld().getName());

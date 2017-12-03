@@ -1,5 +1,6 @@
 package nl.mistermel.monumentwars;
 
+import org.bukkit.Color;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -22,6 +23,8 @@ public class MonumentWars extends JavaPlugin {
 		this.cmdHandle = new CommandHandler();
 		this.configMan = new ConfigManager(this);
 		
+		this.setAllowedColors();
+		
 		this.getCommand("monumentwars").setExecutor(this.cmdHandle);
 		this.registerCmd();
 		this.loadConfig();
@@ -38,6 +41,18 @@ public class MonumentWars extends JavaPlugin {
 		config.addDefault("game.countdown", 10);
 		config.options().copyDefaults(true);
 		configMan.save();
+	}
+	
+	private void setAllowedColors() {
+		arenaMan.getAllowedColors().put("BLACK", Color.BLACK);
+		arenaMan.getAllowedColors().put("BLUE", Color.BLUE);
+		arenaMan.getAllowedColors().put("GREEN", Color.GREEN);
+		arenaMan.getAllowedColors().put("LIME", Color.LIME);
+		arenaMan.getAllowedColors().put("ORANGE", Color.ORANGE);
+		arenaMan.getAllowedColors().put("PURPLE", Color.PURPLE);
+		arenaMan.getAllowedColors().put("RED", Color.RED);
+		arenaMan.getAllowedColors().put("WHITE", Color.WHITE);
+		arenaMan.getAllowedColors().put("YELLOW", Color.YELLOW);
 	}
 	
 	private void loadConfig() {

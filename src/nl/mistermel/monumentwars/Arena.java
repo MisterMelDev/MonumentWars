@@ -10,6 +10,7 @@ import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -77,6 +78,13 @@ public class Arena {
 	public boolean countdownBroadcast() {
 		return countdown % 10 == 0 || countdown <= 5;
 	}
+	
+	public boolean teamExists(String name) {
+		for(Team t : teams) {
+			if(t.getName() == name) return true;
+		}
+		return false;
+	}
 
 	private void countdown() {
 		new BukkitRunnable() {
@@ -109,7 +117,7 @@ public class Arena {
 			addPlayerToTeam(u);
 			Team t = getTeam(u);
 			p.getInventory().addItem(new ItemStack(Material.IRON_SWORD));
-			p.getInventory().addItem(new ItemStack(t.getBuild(), 64));
+			p.getInventory().addItem(t.getBuild());
 		}
 	}
 	
@@ -148,8 +156,8 @@ public class Arena {
 		return result;
 	}
 	
-	public void addTeam(String name, Material build) {
-		teams.add(new Team(name, build));
+	public void addTeam(String name) {
+		teams.add(new Team(name, Color.WHITE));
 	}
 	
 	public Set<Team> getTeams() {

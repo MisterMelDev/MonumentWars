@@ -8,6 +8,8 @@ public enum CommandResult {
 	ARENA_NOT_FOUND(ChatColor.RED + "Arena not found!"),
 	ARENA_ALREADY_EXISTS(ChatColor.RED + "Arena already exists!"),
 	ARENA_NOT_ACTIVE(ChatColor.RED + "Arena isn't active!"),
+	TEAM_EXISTS(ChatColor.RED + "Team already exists!"),
+	TEAM_CREATED(ChatColor.GREEN + "Team has been created and added to the arena!"),
 	INVALID_ARGS(null),
 	FAILURE(null),
 	SUCCESS(null);
